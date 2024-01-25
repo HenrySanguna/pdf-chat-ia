@@ -6,6 +6,7 @@ const nextConfig = {
     config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;
   },
+  output: "standalone"
 };
 
 export default nextConfig;
