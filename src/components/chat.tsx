@@ -6,18 +6,25 @@ import { useChat, Message } from "ai-stream-experimental/react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Spinner } from "./ui/spinner";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Chat() {
+  const [showModal, setShowModal] = useState(false);
+
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const { messages, input, handleInputChange, handleSubmit, isLoading, data } =
-    useChat({
-      initialMessages,
-    });
+  let { messages, input, handleInputChange, handleSubmit, isLoading, data, setMessages } = useChat({initialMessages,});
 
   useEffect(() => {
     setTimeout(() => scrollToBottom(containerRef), 100);
   }, [messages]);
+
+  const handleDialog = () => {
+    setShowModal(true);
+  };
+
+  const handleReset = () => {
+    setMessages(initialMessages);
+  };
 
   return (
     <div className="rounded-2xl border h-[75vh] flex flex-col justify-between">
@@ -42,6 +49,9 @@ export function Chat() {
 
         <Button type="submit" className="w-24">
           {isLoading ? <Spinner /> : "Preguntar"}
+        </Button>
+        <Button onClick={handleReset} className="w-40 ml-4">
+          Nueva conversación
         </Button>
       </form>
     </div>

@@ -29,3 +29,7 @@ export async function getChunkedDocsFromPDF() {
     throw new Error("PDF docs chunking failed !");
   }
 }
+
+export enum DATA_PDFS {
+  "EL PRODUCT OWNER"
+}
